@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/RyanBeiden/.local/share/virtualenvs/rater-api-0GwLmPD3/bin/python"
+    "python.pythonPath": "/Users/RyanBeiden/.local/share/virtualenvs/rater-api-0GwLmPD3/bin/python",
+    "python.linting.pylintEnabled": true
 }
