@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,8 +26,6 @@ SECRET_KEY = 'h6t)4v#!5v8(7e4sw8q_hqihn6n8$w!vql__0ee10+v%86842('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -40,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'levelupapi',
+    'gamerraterapi',
 ]
 
 REST_FRAMEWORK = {
@@ -139,3 +138,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Media Files
+# https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT
+
+MEDIA_ROOT = BASE_DIR / 'media/'
+MEDIA_URL = 'media/'
