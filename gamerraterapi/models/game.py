@@ -20,12 +20,12 @@ class Game(models.Model):
     est_time_to_play = models.IntegerField()
     age_rec = models.IntegerField()
     image_url = models.ImageField(_("Game Image"), blank=True, upload_to=upload_to)
-    player_id = models.ForeignKey("Player",
+    player = models.ForeignKey("Player",
         on_delete=CASCADE,
         related_name="games",
         related_query_name="game"
     )
-    category_id = models.ForeignKey("Category",
+    categories = models.ForeignKey("Category",
         on_delete=CASCADE,
         related_name="games",
         related_query_name="game"

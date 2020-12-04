@@ -1,0 +1,47 @@
+[
+    {
+        "model": "gamerraterapi.game",
+        "pk": 1,
+        "fields": {
+            "title": "Pokémon",
+            "description": "Pokémon is a series of video games developed by Game Freak and published by Nintendo and The Pokémon Company under the Pokémon media franchise.",
+            "designer": "Satoshi Tajiri",
+            "year_released": "1996-01-01",
+            "est_time_to_play": 15,
+            "age_rec": 8,
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png",
+            "player_id": 1,
+            "category_id": 1
+        }
+    },
+    {
+        "model": "gamerraterapi.game",
+        "pk": 2,
+        "fields": {
+            "title": "Yu-Gi-Oh!",
+            "description": "The Yu-Gi-Oh! Trading Card Game is a Japanese collectible card game developed and published by Konami.",
+            "designer": "Kazuki Takahashi",
+            "year_released": "1996-01-01",
+            "est_time_to_play": 25,
+            "age_rec": 12,
+            "image_url": "https://assets.change.org/photos/2/kv/kh/QQkvkhUKvzRdXUw-800x450-noPad.jpg?1586360185",
+            "player_id": 1,
+            "category_id": 1
+        }
+    },
+    {
+        "model": "gamerraterapi.game",
+        "pk": 3,
+        "fields": {
+            "title": "Beyblade",
+            "description": "Beyblade is a line of spinning top toys originally developed by Takara, first released in Japan in July 1999, along with its debut series. Following Takara's merger with Tomy in 2006, Beyblades are now developed by Takara Tomy.",
+            "designer": "Takara Tomy",
+            "year_released": "1999-01-01",
+            "est_time_to_play": 30,
+            "age_rec": 8,
+            "image_url": "https://cdn11.bigcommerce.com/s-iodt3qca/images/stencil/1280x1280/products/569/1125/Grand_Dragon_1__31839.1558208653.jpg?c=2",
+            "player_id": 1,
+            "category_id": 2
+        }
+    }
+]
