@@ -4,14 +4,10 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from gamerraterapi.models import Category
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Category
-        url = serializers.HyperlinkedIdentityField(
-            view_name='category',
-            lookup_field='id'
-        )
         fields = ('id', 'url', 'category_name')
 
 
