@@ -9,9 +9,9 @@
             "year_released": "1996-01-01",
             "est_time_to_play": 15,
             "age_rec": 8,
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png",
-            "player_id": 1,
-            "category_id": 1
+            "image_url": "/pokemon-logo.jpg",
+            "player": 1,
+            "categories": [2, 3 , 4]
         }
     },
     {
@@ -24,9 +24,9 @@
             "year_released": "1996-01-01",
             "est_time_to_play": 25,
             "age_rec": 12,
-            "image_url": "https://assets.change.org/photos/2/kv/kh/QQkvkhUKvzRdXUw-800x450-noPad.jpg?1586360185",
-            "player_id": 1,
-            "category_id": 1
+            "image_url": "/yu-gi-oh.jpg",
+            "player": 1,
+            "categories": [1, 2]
         }
     },
     {
@@ -39,9 +39,9 @@
             "year_released": "1999-01-01",
             "est_time_to_play": 30,
             "age_rec": 8,
-            "image_url": "https://cdn11.bigcommerce.com/s-iodt3qca/images/stencil/1280x1280/products/569/1125/Grand_Dragon_1__31839.1558208653.jpg?c=2",
-            "player_id": 1,
-            "category_id": 2
+            "image_url": "/beyblade.jpg",
+            "player": 1,
+            "categories": [2, 3]
         }
     }
 ]

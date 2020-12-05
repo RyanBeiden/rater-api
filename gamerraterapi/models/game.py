@@ -25,8 +25,4 @@ class Game(models.Model):
         related_name="games",
         related_query_name="game"
     )
-    categories = models.ForeignKey("Category",
-        on_delete=CASCADE,
-        related_name="games",
-        related_query_name="game"
-    )
+    categories = models.ManyToManyField("Category")
