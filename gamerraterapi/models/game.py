@@ -18,6 +18,7 @@ class Game(models.Model):
     designer = models.CharField(max_length=25)
     year_released = models.DateField()
     est_time_to_play = models.IntegerField()
+    num_of_players = models.IntegerField()
     age_rec = models.IntegerField()
     image_url = models.ImageField(_("Game Image"), blank=True, upload_to=upload_to)
     player = models.ForeignKey("Player",
