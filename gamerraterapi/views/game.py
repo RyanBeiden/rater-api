@@ -17,7 +17,7 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
             view_name='game',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'title', 'description', 'designer', 'year_released', 'est_time_to_play', 'age_rec', 'image_url', 'categories')
+        fields = ('id', 'url', 'title', 'description', 'designer', 'year_released', 'num_of_players', 'est_time_to_play', 'age_rec', 'image_url', 'categories')
         depth = 1
 
 
