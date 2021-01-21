@@ -1,0 +1,47 @@
+[
+    {
+        "model": "gamerraterapi.game",
+        "pk": 1,
+        "fields": {
+            "title": "Pokémon",
+            "description": "Pokémon is a series of video games developed by Game Freak and published by Nintendo and The Pokémon Company under the Pokémon media franchise.",
+            "designer": "Satoshi Tajiri",
+            "year_released": "1996-01-01",
+            "est_time_to_play": 15,
+            "age_rec": 8,
+            "image_url": "/pokemon-logo.jpg",
+            "player": 1,
+            "categories": [2, 3 , 4]
+        }
+    },
+    {
+        "model": "gamerraterapi.game",
+        "pk": 2,
+        "fields": {
+            "title": "Yu-Gi-Oh!",
+            "description": "The Yu-Gi-Oh! Trading Card Game is a Japanese collectible card game developed and published by Konami.",
+            "designer": "Kazuki Takahashi",
+            "year_released": "1996-01-01",
+            "est_time_to_play": 25,
+            "age_rec": 12,
+            "image_url": "/yu-gi-oh.jpg",
+            "player": 1,
+            "categories": [1, 2]
+        }
+    },
+    {
+        "model": "gamerraterapi.game",
+        "pk": 3,
+        "fields": {
+            "title": "Beyblade",
+            "description": "Beyblade is a line of spinning top toys originally developed by Takara, first released in Japan in July 1999, along with its debut series. Following Takara's merger with Tomy in 2006, Beyblades are now developed by Takara Tomy.",
+            "designer": "Takara Tomy",
+            "year_released": "1999-01-01",
+            "est_time_to_play": 30,
+            "age_rec": 8,
+            "image_url": "/beyblade.jpg",
+            "player": 1,
+            "categories": [2, 3]
+        }
+    }
+]
