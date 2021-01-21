@@ -49,7 +49,6 @@ class GameViewSet(ModelViewSet):
     def create(self, request):
         player = Player.objects.get(user=request.auth.user)
         image_data = ''
-        categories = 0
 
         # Format new post image
         if request.data['image_url']:
