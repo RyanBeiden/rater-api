@@ -8,8 +8,9 @@
             "designer": "Satoshi Tajiri",
             "year_released": "1996-01-01",
             "est_time_to_play": 15,
+            "num_of_players": 12,
             "age_rec": 8,
-            "image_url": "/pokemon-logo.jpg",
+            "image_url": "games/pokemon-logo.jpg",
             "player": 1,
             "categories": [2, 3 , 4]
         }
@@ -23,8 +24,9 @@
             "designer": "Kazuki Takahashi",
             "year_released": "1996-01-01",
             "est_time_to_play": 25,
+            "num_of_players": 12,
             "age_rec": 12,
-            "image_url": "/yu-gi-oh.jpg",
+            "image_url": "games/yu-gi-oh.jpg",
             "player": 1,
             "categories": [1, 2]
         }
@@ -38,8 +40,9 @@
             "designer": "Takara Tomy",
             "year_released": "1999-01-01",
             "est_time_to_play": 30,
+            "num_of_players": 12,
             "age_rec": 8,
-            "image_url": "/beyblade.jpg",
+            "image_url": "games/beyblade.jpg",
             "player": 1,
             "categories": [2, 3]
         }
