@@ -1,17 +1,13 @@
-import os
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
 class Game(models.Model):
 
     def upload_to(instance, filename):
-        now = timezone.now()
-        base, extension = os.path.splitext(filename.lower())
-        milliseconds = now.microsecond // 1000
-        return f"media/{instance.pk}/{now:%Y%m%d%H%M%S}{milliseconds}{extension}"
+        return f"games/{instance.player.id}-{uuid.uuid4()}"
 
     title = models.CharField(max_length=25)
     description = models.CharField(max_length=250)
