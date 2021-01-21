@@ -1,0 +1,26 @@
+  [
+    {
+        "model": "gamerraterapi.review",
+        "pk": 1,
+        "fields": {
+            "content": "Hubba bubba",
+            "game_id": 1
+        }
+    },
+    {
+        "model": "gamerraterapi.review",
+        "pk": 2,
+        "fields": {
+            "content": "Hubba bubba",
+            "game_id": 1
+        }
+    },
+    {
+        "model": "gamerraterapi.review",
+        "pk": 3,
+        "fields": {
+            "content": "Hubba bubba",
+            "game_id": 3
+        }
+    }
+]
