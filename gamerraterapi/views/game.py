@@ -10,7 +10,7 @@ from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from gamerraterapi.models import Game, Category, Player
+from gamerraterapi.models import Game, Category, Player, Rating
 
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -23,7 +23,7 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
             view_name='game',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'title', 'description', 'designer', 'year_released', 'num_of_players', 'est_time_to_play', 'age_rec', 'image_url', 'categories')
+        fields = ('id', 'url', 'title', 'description', 'designer', 'year_released', 'num_of_players', 'est_time_to_play', 'age_rec', 'image_url', 'categories', 'average_rating')
         depth = 1
 
 
