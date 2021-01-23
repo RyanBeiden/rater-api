@@ -1,0 +1,29 @@
+[
+    {
+        "model": "gamerraterapi.rating",
+        "pk": 1,
+        "fields": {
+            "value": 1,
+            "player": 1,
+            "game": 2
+        }
+    },
+    {
+        "model": "gamerraterapi.rating",
+        "pk": 2,
+        "fields": {
+            "value": 8,
+            "player": 2,
+            "game": 2
+        }
+    },
+    {
+        "model": "gamerraterapi.rating",
+        "pk": 3,
+        "fields": {
+            "value": 4,
+            "player": 3,
+            "game": 2
+        }
+    }
+]
