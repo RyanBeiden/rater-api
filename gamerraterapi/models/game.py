@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from .rating import Rating
 from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
 
@@ -23,3 +24,21 @@ class Game(models.Model):
         related_query_name="game"
     )
     categories = models.ManyToManyField("Category")
+
+    @property
+    def average_rating(self):
+
+        ratings = Rating.objects.filter(game=self)
+
+        # Sum all of the ratings for the game
+        total_rating = 0
+        rating_count = 0
+
+        for rating in ratings:
+            total_rating += rating.value
+            rating_count += 1
+        
+        if rating_count != 0:
+            total_rating = round(total_rating / rating_count, 2)
+
+        return total_rating
