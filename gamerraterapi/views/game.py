@@ -10,6 +10,7 @@ from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
+from django.db.models import Q
 from gamerraterapi.models import Game, Category, Player, Rating
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -35,6 +36,15 @@ class GameViewSet(ModelViewSet):
 
     def list(self, request):
         games = Game.objects.all()
+
+        search_text = self.request.query_params.get('q', None)
+
+        if search_text is not None:
+            games = Game.objects.filter(
+                Q(title__contains=search_text) |
+                Q(description__contains=search_text) |
+                Q(designer__contains=search_text)
+            )
 
         serializer = GameSerializer(
             games, many=True, context={'request': request}
