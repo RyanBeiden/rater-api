@@ -13,6 +13,14 @@ class RatingSerializer(serializers.ModelSerializer):
 
 
 class RatingViewSet(ViewSet):
+    def retrieve(self, request, pk=None):
+        try:
+            rating = Rating.objects.get(pk=pk)
+            serializer = RatingSerializer(rating, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
     def list(self, request):
         ratings = Rating.objects.all()
 
@@ -41,7 +49,7 @@ class RatingViewSet(ViewSet):
         try:
             rating.save()
             serializer = RatingSerializer(rating, context={'request': request})
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'reason': ex.message}, status=status.HTTP_400_BAD_REQUEST)
 

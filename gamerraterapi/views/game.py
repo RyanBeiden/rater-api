@@ -16,14 +16,10 @@ class CategoriesSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Category
         fields = '__all__'
-class GameSerializer(serializers.HyperlinkedModelSerializer):
+class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        url = serializers.HyperlinkedIdentityField(
-            view_name='game',
-            lookup_field='id'
-        )
-        fields = ('id', 'url', 'title', 'description', 'designer', 'year_released', 'num_of_players', 'est_time_to_play', 'age_rec', 'image_url', 'categories', 'average_rating')
+        fields = ('id', 'title', 'description', 'designer', 'year_released', 'num_of_players', 'est_time_to_play', 'age_rec', 'image_url', 'player', 'categories', 'average_rating')
         depth = 1
 
 
