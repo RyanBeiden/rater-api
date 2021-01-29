@@ -71,7 +71,8 @@ class GameTests(APITestCase):
         self.assertEqual(json_response["num_of_players"], 12)
         self.assertEqual(json_response["age_rec"], 12)
         self.assertEqual(json_response["image_url"], None)
-        self.assertEqual(json_response["player"]["id"], 1)
+        self.assertDictEqual(json_response["player"], {'id': 1, 'user': 1})
+        self.assertListEqual(json_response["categories"], [{'id': 1, 'category_name': 'Strategy'}])
 
 
     def test_get_single_game(self):
@@ -109,8 +110,8 @@ class GameTests(APITestCase):
         self.assertEqual(json_response["num_of_players"], 12)
         self.assertEqual(json_response["age_rec"], 12)
         self.assertEqual(json_response["image_url"], None)
-        self.assertEqual(json_response["player"], {'id': 1, 'user': 1})
-        self.assertEqual(json_response["categories"], [{'id': 1, 'category_name': 'Strategy'}])
+        self.assertDictEqual(json_response["player"], {'id': 1, 'user': 1})
+        self.assertListEqual(json_response["categories"], [{'id': 1, 'category_name': 'Strategy'}])
 
 
     def test_get_all_games(self):
@@ -150,5 +151,5 @@ class GameTests(APITestCase):
             self.assertEqual(json_response[i]["num_of_players"], 12)
             self.assertEqual(json_response[i]["age_rec"], 12)
             self.assertEqual(json_response[i]["image_url"], None)
-            self.assertEqual(json_response[i]["player"], {'id': 1, 'user': 1})
-            self.assertEqual(json_response[i]["categories"], [{'id': 1, 'category_name': 'Strategy'}])
+            self.assertDictEqual(json_response[i]["player"], {'id': 1, 'user': 1})
+            self.assertListEqual(json_response[i]["categories"], [{'id': 1, 'category_name': 'Strategy'}])
