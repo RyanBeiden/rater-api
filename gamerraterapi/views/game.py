@@ -38,6 +38,7 @@ class GameViewSet(ModelViewSet):
         games = Game.objects.all()
 
         search_text = self.request.query_params.get('q', None)
+        sort_text = self.request.query_params.get('orderby', None)
 
         if search_text is not None:
             games = Game.objects.filter(
@@ -45,6 +46,9 @@ class GameViewSet(ModelViewSet):
                 Q(description__contains=search_text) |
                 Q(designer__contains=search_text)
             )
+
+        elif sort_text is not None:
+            games = Game.objects.order_by(f'{sort_text}')
 
         serializer = GameSerializer(
             games, many=True, context={'request': request}
