@@ -27,8 +27,8 @@ SECRET_KEY = 'h6t)4v#!5v8(7e4sw8q_hqihn6n8$w!vql__0ee10+v%86842('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# If Debug is set to False (because of viewing media files):
-# ALLOWED_HOSTS = ['*']
+# If Debug is set to False:
+ALLOWED_HOSTS = ['https://gamer-rater-api.herokuapp.com/']
 
 
 # Application definition
