@@ -1,0 +1,1 @@
+web: gunicorn gamerrater.wsgi --log-file -
