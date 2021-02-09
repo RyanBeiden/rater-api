@@ -1,9 +1,7 @@
 import os
-import boto3
+import uuid
 import base64
-import logging
-from botocore.client import Config
-from botocore.exceptions import ClientError
+import cloudinary
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
@@ -17,35 +15,6 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from gamerraterapi.models import Game, Category, Player, Rating
-
-
-def create_presigned_url(bucket_name, bucket_key, expiration=3600, signature_version=['v4']):
-    """Generate a presigned URL for the S3 object
-    :param bucket_name: string
-    :param bucket_key: string
-    :param expiration: Time in seconds for the presigned URL to remain valid
-    :param signature_version: string
-    :return: Presigned URL as string. If error, returns None.
-    """
-    s3_client = boto3.client('s3',
-                            aws_access_key_id='AKIA3JRJCIHL73UEDGL3',
-                            aws_secret_access_key='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',
-                            config=Config(signature_version=signature_version),
-                            region_name='us-east-2'
-                            )
-    try:
-        response = s3_client.generate_presigned_url('get_object',
-                                                    Params={'Bucket': bucket_name,
-                                                            'Key': bucket_key},
-                                                    ExpiresIn=expiration)
-        print(s3_client.list_buckets()['Owner'])
-        for key in s3_client.list_objects(Bucket=bucket_name, Prefix=bucket_key)['Contents']:
-            print(key['Key'])
-    except ClientError as e:
-        logging.error(e)
-        return None
-    # The response contains the presigned URL
-    return response
 
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -94,18 +63,15 @@ class GameViewSet(ModelViewSet):
 
     def create(self, request):
         player = Player.objects.get(user=request.auth.user)
-        image_data = ''
+        image_upload = ''
 
-        # Format new post image
+        # Format new post image & Upload to Cloudinary
         if request.data['image_url']:
             format, imgstr = request.data['image_url'].split(';base64,')
             ext = format.split('/')[-1]
             image_data = ContentFile(base64.b64decode(imgstr), name=f'.{ext}')
-            response = create_presigned_url('gamer-rater-assets', '/media/games/3-51b6f375-634c-478d-af80-e1d46b76be00')
-            print(response)
-
-            # The response contains the presigned URL
-            # return response
+            result = cloudinary.uploader.upload(image_data, public_id=f"gamer-rater-assets/media/games/{player.id}-{uuid.uuid4()}")
+            image_upload = result['url'].split('media')[-1]
 
 
         game = Game()
@@ -116,7 +82,7 @@ class GameViewSet(ModelViewSet):
         game.est_time_to_play = request.data['est_time_to_play']
         game.num_of_players = request.data['num_of_players']
         game.age_rec = request.data['age_rec']
-        game.image_url = image_data
+        game.image_url = image_upload
         game.player = player
 
         try:
@@ -147,11 +113,20 @@ class GameViewSet(ModelViewSet):
 
     @receiver(models.signals.post_delete, sender=Game)
     def auto_delete_file_on_delete(sender, instance, **kwargs):
-        # Deletes file from filesystem when corresponding `Game` object is deleted.
+        # Deletes file from Cloudinary when corresponding `Game` object is deleted.
 
         if instance.image_url:
-            if os.path.isfile(instance.image_url.path):
-                os.remove(instance.image_url.path)
+            raw_image = instance.image_url.url.split('media')[-1]
+            image_path = raw_image.split('.')[0]
+            search_result = cloudinary.Search()\
+                .expression(f'public_id=gamer-rater-assets/media{image_path}')\
+                .max_results('1')\
+                .execute()
+            if search_result['resources']:
+                destroy_result = cloudinary.uploader.destroy(search_result['resources'][0]['public_id'])
+                print(destroy_result)
+            else:
+                pass
 
 
     def update(self, request, pk=None):
