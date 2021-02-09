@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import django_on_heroku
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'gamerraterapi',
-    'storages',
+    'cloudinary',
 ]
 
 REST_FRAMEWORK = {
@@ -149,26 +150,5 @@ django_on_heroku.settings(locals())
 # Media Files
 # https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT
 
-MEDIA_ROOT = BASE_DIR / 'media/'
-MEDIA_URL = 'media/'
-
-# AWS Config
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'gamerrater/static'),
-]
-
-AWS_ACCESS_KEY_ID = 'AKIA3JRJCIHL73UEDGL3'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'gamer-rater-assets'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
-AWS_LOCATION = 'static'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-
-DEFAULT_FILE_STORAGE = 'gamerrater.storage_backends.MediaStorage'
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'https://res.cloudinary.com/vuu9zc7d/image/upload/v1612837185/gamer-rater-assets/media/'
