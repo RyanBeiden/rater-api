@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # Media directory
-media./gamerrater/settings.py
+media
+./gamerrater/settings.py
