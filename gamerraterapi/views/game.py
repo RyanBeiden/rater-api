@@ -1,8 +1,13 @@
 import os
+import boto3
 import base64
+import logging
+from botocore.client import Config
+from botocore.exceptions import ClientError
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
+from django.db.models import Q
 from django.core.files.base import ContentFile
 from django.http import HttpResponseServerError
 from rest_framework import status
@@ -11,8 +16,36 @@ from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from django.db.models import Q
 from gamerraterapi.models import Game, Category, Player, Rating
+
+
+def create_presigned_url(bucket_name, bucket_key, expiration=3600, signature_version=['v4']):
+    """Generate a presigned URL for the S3 object
+    :param bucket_name: string
+    :param bucket_key: string
+    :param expiration: Time in seconds for the presigned URL to remain valid
+    :param signature_version: string
+    :return: Presigned URL as string. If error, returns None.
+    """
+    s3_client = boto3.client('s3',
+                            aws_access_key_id='AKIA3JRJCIHL73UEDGL3',
+                            aws_secret_access_key='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',
+                            config=Config(signature_version=signature_version),
+                            region_name='us-east-2'
+                            )
+    try:
+        response = s3_client.generate_presigned_url('get_object',
+                                                    Params={'Bucket': bucket_name,
+                                                            'Key': bucket_key},
+                                                    ExpiresIn=expiration)
+        print(s3_client.list_buckets()['Owner'])
+        for key in s3_client.list_objects(Bucket=bucket_name, Prefix=bucket_key)['Contents']:
+            print(key['Key'])
+    except ClientError as e:
+        logging.error(e)
+        return None
+    # The response contains the presigned URL
+    return response
 
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -68,6 +101,12 @@ class GameViewSet(ModelViewSet):
             format, imgstr = request.data['image_url'].split(';base64,')
             ext = format.split('/')[-1]
             image_data = ContentFile(base64.b64decode(imgstr), name=f'.{ext}')
+            response = create_presigned_url('gamer-rater-assets', '/media/games/3-51b6f375-634c-478d-af80-e1d46b76be00')
+            print(response)
+
+            # The response contains the presigned URL
+            # return response
+
 
         game = Game()
         game.title = request.data['title']
