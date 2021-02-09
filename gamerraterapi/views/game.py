@@ -1,8 +1,11 @@
 import os
+import uuid
 import base64
+import cloudinary
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
+from django.db.models import Q
 from django.core.files.base import ContentFile
 from django.http import HttpResponseServerError
 from rest_framework import status
@@ -11,7 +14,6 @@ from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from django.db.models import Q
 from gamerraterapi.models import Game, Category, Player, Rating
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -61,13 +63,16 @@ class GameViewSet(ModelViewSet):
 
     def create(self, request):
         player = Player.objects.get(user=request.auth.user)
-        image_data = ''
+        image_upload = ''
 
-        # Format new post image
+        # Format new post image & Upload to Cloudinary
         if request.data['image_url']:
             format, imgstr = request.data['image_url'].split(';base64,')
             ext = format.split('/')[-1]
             image_data = ContentFile(base64.b64decode(imgstr), name=f'.{ext}')
+            result = cloudinary.uploader.upload(image_data, public_id=f"gamer-rater-assets/media/games/{player.id}-{uuid.uuid4()}")
+            image_upload = result['url'].split('media')[-1]
+
 
         game = Game()
         game.title = request.data['title']
@@ -77,7 +82,7 @@ class GameViewSet(ModelViewSet):
         game.est_time_to_play = request.data['est_time_to_play']
         game.num_of_players = request.data['num_of_players']
         game.age_rec = request.data['age_rec']
-        game.image_url = image_data
+        game.image_url = image_upload
         game.player = player
 
         try:
@@ -108,11 +113,20 @@ class GameViewSet(ModelViewSet):
 
     @receiver(models.signals.post_delete, sender=Game)
     def auto_delete_file_on_delete(sender, instance, **kwargs):
-        # Deletes file from filesystem when corresponding `Game` object is deleted.
+        # Deletes file from Cloudinary when corresponding `Game` object is deleted.
 
         if instance.image_url:
-            if os.path.isfile(instance.image_url.path):
-                os.remove(instance.image_url.path)
+            raw_image = instance.image_url.url.split('media')[-1]
+            image_path = raw_image.split('.')[0]
+            search_result = cloudinary.Search()\
+                .expression(f'public_id=gamer-rater-assets/media{image_path}')\
+                .max_results('1')\
+                .execute()
+            if search_result['resources']:
+                destroy_result = cloudinary.uploader.destroy(search_result['resources'][0]['public_id'])
+                print(destroy_result)
+            else:
+                pass
 
 
     def update(self, request, pk=None):

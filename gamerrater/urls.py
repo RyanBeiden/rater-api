@@ -1,10 +1,13 @@
 from django.conf import settings
+from pathlib import Path
 from django.conf.urls.static import static
 from django.conf.urls import include
 from django.urls import path
 from django.contrib import admin
 from rest_framework import routers
 from gamerraterapi.views import GameViewSet, CategoryViewSet, ReviewViewSet, RatingViewSet, login_user, register_user
+
+base_dir = Path(__file__).resolve().parent.parent
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'games', GameViewSet, 'game')
@@ -21,4 +24,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG is True:
+    urlpatterns += static('media/', base_dir / 'media/')
+elif settings.DEBUG is False:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
