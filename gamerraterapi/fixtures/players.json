@@ -6,5 +6,12 @@
         "fields": {
             "user": 1
         }
+    },
+    {
+        "model": "gamerraterapi.player",
+        "pk": 2,
+        "fields": {
+            "user": 2
+        }
     }
 ]
