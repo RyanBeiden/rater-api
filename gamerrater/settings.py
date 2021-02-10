@@ -151,4 +151,4 @@ django_on_heroku.settings(locals())
 # https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT
 
 MEDIA_ROOT = 'media/'
-MEDIA_URL = 'https://res.cloudinary.com/vuu9zc7d/image/upload/v1612837185/gamer-rater-assets/media/'
+MEDIA_URL = 'https://res.cloudinary.com/hv72ptnog/image/upload/v1612924865/gamer-rater-assets/media/'
